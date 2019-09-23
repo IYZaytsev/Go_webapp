@@ -32,6 +32,8 @@ func main() {
 	//fmt.Println("student deleted", dataBaseStudent)
 	addClass(&dataBaseClass, dataBaseStudent, 1, 2)
 	addTeacher(2, dataBaseClass, &dataBaseTeacher)
+	fmt.Println(dataBaseTeacher)
+	fmt.Println(dataBaseClass)
 }
 
 func addStudent(id int, db *[]student) {
