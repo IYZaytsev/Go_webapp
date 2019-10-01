@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+
+  </head>
+
+  <body>
+    
+    <div class = "centered">
+    <h1>{{ .Header }} </h1>
+    <div class = "button_block" > 
+           <form action="/create/" method="POST" id = "form1"> </form>
+            <button type = "submit" value="submit" form ="form1" id = "Create" >Create</button> 
+            <button type="button" id = "Search">Search</button> 
+            <button type="button" id = "Update">Update</button> 
+            <button type="button" id = "Delete">Delete</button> 
+    </div>
+    </div>
+</body></html>
