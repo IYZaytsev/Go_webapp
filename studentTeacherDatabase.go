@@ -25,17 +25,24 @@ type page struct {
 	Student bool
 	Class   bool
 	Type    string
+	Content string
+	ID      int
 }
 
-//handler used for the first create screen
-
-func selectHandler(w http.ResponseWriter, r *http.Request) {
-
-	data := page{Title: "School Database", Header: "What type would you like to create?"}
-	if err := tmpls.ExecuteTemplate(w, "select.html", data); err != nil {
+//function to load template
+func templateInit(w http.ResponseWriter, templateFile string, templateData page) {
+	if err := tmpls.ExecuteTemplate(w, templateFile, templateData); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+//handler used for the first create screen
+func selectHandler(w http.ResponseWriter, r *http.Request) {
+
+	data := page{Title: "School Database", Header: "What type would you like to create?"}
+	templateInit(w, "select.html", data)
+
 }
 
 func createHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,41 +50,48 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 	value := strings.Join(r.Form["selected_value"], " ")
 	data := page{Title: "School Database", Header: "Editing " + value, Type: value}
 
-	if value == "student" {
+	switch value {
+	case "student":
+		data.Student = true
+
+	case "teacher":
+		data.Student = true
+
+	case "class":
 		data.Student = true
 
 	}
-	if value == "teacher" {
-		data.Teacher = true
 
-	}
-	if value == "class" {
-		data.Class = true
-
-	}
-	if err := tmpls.ExecuteTemplate(w, "create.html", data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	templateInit(w, "create.html", data)
 
 }
 
 //main page of the web app
 func index(w http.ResponseWriter, r *http.Request) {
 	data := page{Title: "School Database", Header: "Welcome, please select an option"}
-	if err := tmpls.ExecuteTemplate(w, "index.html", data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-}
-func viewHandler(w http.ResponseWriter, r *http.Request) {
-	typeOfObject := r.URL.Path[len("/view/"):]
-	if typeOfObject == "student" {
-		log.Println(r.FormValue("studentName"))
-		dataBaseTypes.AddStudent(1, r.FormValue("studentName"), &dataBaseStudent)
-	}
+	templateInit(w, "index.html", data)
 
 }
+func viewHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("in view handler")
+	typeOfObject := r.URL.Path[len("/view/"):]
+
+	switch typeOfObject {
+
+	case "student":
+		log.Println("Inside student logic")
+		dataBaseTypes.AddStudent(1, r.FormValue("studentName"), &dataBaseStudent)
+		data := page{Title: "View Page", Content: "Student: " + r.FormValue("studentName"), ID: 1}
+		log.Println("creating viewpage struct")
+		templateInit(w, "view.html", data)
+
+	case "teacher:":
+
+	case "class":
+
+	} //end of switch statement
+}
+
 func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/select/", selectHandler)
