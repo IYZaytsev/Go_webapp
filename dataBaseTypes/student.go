@@ -1,14 +1,18 @@
 package dataBaseTypes
 
 type Student struct {
-	id int
+	id   int
+	name string
 }
 
-func AddStudent(id int, db *[]Student) {
+//add student functino, needs a name and id value;
+func AddStudent(id int, name string, db *[]Student) {
 	realValue := *db
-	*db = append(realValue, Student{id})
+	*db = append(realValue, Student{id, name})
 }
 
+//Function used to delete students, students are selected for deletion by passsing
+//an id.
 func DeleteStudent(taggedforRemoval int, db *[]Student) {
 	realValue := *db
 	tempSlice := make([]Student, 0)
@@ -17,7 +21,7 @@ func DeleteStudent(taggedforRemoval int, db *[]Student) {
 		if realValue[i].id == taggedforRemoval {
 			continue
 		}
-		tempSlice = append(tempSlice, Student{realValue[i].id})
+		tempSlice = append(tempSlice, Student{realValue[i].id, realValue[i].name})
 	}
 	*db = tempSlice
 }

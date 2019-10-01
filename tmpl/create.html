@@ -1,23 +1,31 @@
 <!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>{{ .Title }}</title>
+			<link rel="stylesheet" type="text/css" href="/static/main.css">
+			</head>
+			<body>
+				<div class = "centered">
+					<h1>{{ .Header }}</h1>
+					<form action="/view/{{.Type}}" method="POST">
+					{{if .Student}}
+					you selected student.
+					<div>StudentName: <textarea name="studentName" rows="1" cols="15"></textarea></div>
+					{{end}}
+					{{if .Teacher}}
+					you selected teacher.
+					<div>TeacherName:  <textarea name="input" rows="1" cols="15"></textarea></div>
+					{{end}}
 
-<html lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>{{ .Title }}</title>
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
-
-  </head>
-
-  <body>
-    
-    <div class = "centered">
-<h1>{{ .Header }}</h1>
-
-<form action="/save/"value method="POST">
-<select>
-  <option value="1">student</option>
-  <option value="2">teacher</option>
-  <option value="3">class</option>
-</select>
-<div><input type="submit" value="Save"></div>
-</form>
-  </div>
-</body></html>
+					{{if .Class}}
+					you selected class.
+					<div>TeacherName:  <textarea name="input" rows="1" cols="15"></textarea></div>
+					{{end}}
+					
+					<div><input type="submit" value="Save"></div>
+					</form>
+					
+					</div>
+				</body>
+			</html>
