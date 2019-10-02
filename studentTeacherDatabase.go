@@ -17,6 +17,9 @@ var dataBaseClass []dataBaseTypes.Class
 var dataBaseTeacher []dataBaseTypes.Teacher
 var tmpls = template.Must(template.ParseFiles("tmpl/index.html", "tmpl/select.html", "tmpl/create.html", "tmpl/view.html"))
 
+//Used to create unique ids for items
+var globalID int
+
 //used to change title and header of a HTML template
 type page struct {
 	Title   string
@@ -27,6 +30,12 @@ type page struct {
 	Type    string
 	Content string
 	ID      int
+	Action  string
+}
+
+func generateUniqueID() int {
+	globalID++
+	return globalID
 }
 
 //function to load template
@@ -39,9 +48,18 @@ func templateInit(w http.ResponseWriter, templateFile string, templateData page)
 
 //handler used for the first create screen
 func selectHandler(w http.ResponseWriter, r *http.Request) {
+	urlSubString := r.URL.Path[len("/select/"):]
 
-	data := page{Title: "School Database", Header: "What type would you like to create?"}
-	templateInit(w, "select.html", data)
+	switch urlSubString {
+	case "create":
+		data := page{Title: "School Database", Header: "What type would you like to create?", Action: "/" + urlSubString + "/"}
+		templateInit(w, "select.html", data)
+
+	case "search":
+		data := page{Title: "School Database", Header: "What type would you like to search?", Action: "/" + urlSubString + "/"}
+		templateInit(w, "select.html", data)
+
+	}
 
 }
 
@@ -55,10 +73,10 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		data.Student = true
 
 	case "teacher":
-		data.Student = true
+		data.Teacher = true
 
 	case "class":
-		data.Student = true
+		data.Class = true
 
 	}
 
@@ -73,26 +91,37 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 }
 func viewHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("in view handler")
 	typeOfObject := r.URL.Path[len("/view/"):]
 
 	switch typeOfObject {
 
 	case "student":
-		log.Println("Inside student logic")
-		dataBaseTypes.AddStudent(1, r.FormValue("studentName"), &dataBaseStudent)
-		data := page{Title: "View Page", Content: "Student: " + r.FormValue("studentName"), ID: 1}
-		log.Println("creating viewpage struct")
+		tempID := generateUniqueID()
+		dataBaseTypes.AddStudent(tempID, r.FormValue("studentName"), &dataBaseStudent)
+		data := page{Title: "View Page", Content: "Student: " + r.FormValue("studentName"), ID: tempID}
 		templateInit(w, "view.html", data)
 
-	case "teacher:":
+	case "teacher":
+
+		tempID := generateUniqueID()
+		var classSlice []dataBaseTypes.Class
+		dataBaseTypes.AddTeacher(tempID, classSlice, r.FormValue("teacherName"), &dataBaseTeacher)
+		data := page{Title: "View Page", Content: "Teacher: " + r.FormValue("teacherName"), ID: tempID}
+		templateInit(w, "view.html", data)
 
 	case "class":
-
+		/*
+			tempID := generateUniqueID()
+			var studentSlice []dataBaseTypes.Student
+			dataBaseTypes.AddClass(tempID, r.FormValue("className"), &dataBaseStudent)
+			data := page{Title: "View Page", Content: "className: " + r.FormValue("className"), ID: tempID}
+			templateInit(w, "view.html", data)
+		*/
 	} //end of switch statement
 }
 
 func main() {
+
 	http.HandleFunc("/", index)
 	http.HandleFunc("/select/", selectHandler)
 	http.HandleFunc("/create/", createHandler)

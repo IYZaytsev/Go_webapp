@@ -3,11 +3,12 @@ package dataBaseTypes
 type Teacher struct {
 	id      int
 	classes []Class
+	name    string
 }
 
-func AddTeacher(teacherID int, classes []Class, db *[]Teacher) {
+func AddTeacher(teacherID int, classes []Class, name string, db *[]Teacher) {
 	realValue := *db
-	*db = append(realValue, Teacher{teacherID, classes})
+	*db = append(realValue, Teacher{teacherID, classes, name})
 	//fmt.Println(realValue)
 }
 
@@ -19,7 +20,7 @@ func DeleteTeacher(taggedforRemoval int, db *[]Teacher) {
 		if realValue[i].id == taggedforRemoval {
 			continue
 		}
-		tempSlice = append(tempSlice, Teacher{realValue[i].id, realValue[i].classes})
+		tempSlice = append(tempSlice, Teacher{realValue[i].id, realValue[i].classes, realValue[i].name})
 	}
 	*db = tempSlice
 }

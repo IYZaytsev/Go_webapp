@@ -9,9 +9,10 @@
 				<div class = "centered">
 					<h1>{{ .Header }} </h1>
 					<div class = "button_block" >
-						<form action="/select/" method="POST" id = "form1"></form>
+						<form action="/select/create" method="POST" id = "form1"></form>
+						<form action="/select/search" method="POST" id = "form2"></form>
 						<button type = "submit" value="submit" form ="form1" id = "Create" >Create</button>
-						<button type="button" id = "Search">Search</button>
+						<button type="submit" value = "submit" form = "form2" id = "Search">Search</button>
 						<button type="button" id = "Update">Update</button>
 						<button type="button" id = "Delete">Delete</button>
 					</div>

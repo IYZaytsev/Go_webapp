@@ -8,7 +8,7 @@
 			<body>
 				<div class = "centered">
 					<h1>{{ .Header }}</h1>
-					<form action="/create/"value method="POST">
+					<form action={{.Action}}value method="POST">
 						<select name = "selected_value">
 							<option  value="student">student</option>
 							<option value="teacher">teacher</option>
