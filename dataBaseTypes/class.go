@@ -1,17 +1,16 @@
 package dataBaseTypes
 
-import "fmt"
-
 type Class struct {
-	students  []Student
-	id        int
-	teacherID int
+	Students  []Student
+	Id        int
+	TeacherID int
+	Name      string
 }
 
-func AddClass(db *[]Class, students []Student, id int, teacherID int) {
+func AddClass(classId int, className string, students []Student, teacherID int, db *[]Class) {
 	realValue := *db
-	fmt.Println(realValue)
-	*db = append(realValue, Class{students, id, teacherID})
+
+	*db = append(realValue, Class{students, classId, teacherID, className})
 
 	//fmt.Println(realValue)
 }

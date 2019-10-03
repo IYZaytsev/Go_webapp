@@ -7,15 +7,11 @@
 			</head>
 			<body>
 				<div class = "centered">
-					<h1>{{ .Header }}</h1>
-					<form action={{.Action}} method="POST">
-						<select name = "selected_value">
-							<option  value="student">student</option>
-							<option value="teacher">teacher</option>
-							<option value="class">class</option>
-						</select>
+					<h1>{{ .Content }}</h1>
+                   
+					<form action="/"value method="POST">
 						<div>
-							<input type="submit" value="Save">
+							<input type="submit" value="Go back">
 							</div>
 						</form>
 					</div>
