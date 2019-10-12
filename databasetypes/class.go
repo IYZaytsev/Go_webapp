@@ -7,6 +7,7 @@ type Class struct {
 	TeacherID int
 	Name      string
 }
+type Classes []Class
 
 //AddClass used to add class to database
 func AddClass(classID int, className string, students []Student, teacherID int, db *[]Class) {

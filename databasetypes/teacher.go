@@ -7,6 +7,8 @@ type Teacher struct {
 	name    string
 }
 
+type Teachers []Teacher
+
 //AddTeacher used to add teachers
 func AddTeacher(teacherID int, classes []Class, name string, db *[]Teacher) {
 	realValue := *db

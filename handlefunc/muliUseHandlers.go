@@ -1,8 +1,14 @@
 package handlefunc
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"text/template"
+	"time"
+
+	"../databasetypes"
 )
 
 //Page is used with Init function to create HTML pages
@@ -18,6 +24,7 @@ type Page struct {
 	ID      int
 }
 
+var myClient = http.Client{Timeout: 10 * time.Second}
 var tmpls = template.Must(template.ParseFiles("tmpl/index.html", "tmpl/select.html", "tmpl/create.html", "tmpl/view.html",
 	"tmpl/search.html", "tmpl/searchResults.html"))
 
@@ -51,4 +58,29 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	data := Page{Title: "School Database", Header: "Welcome, please select an option"}
 	TemplateInit(w, "index.html", data)
 
+}
+func ApiCall(w http.ResponseWriter, r *http.Request, path string, method string) int {
+	url := "http://localhost:8080" + path
+
+	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("User-Agent", "ApiCall")
+	res, getErr := myClient.Do(req)
+	if getErr != nil {
+		log.Fatal(getErr)
+	}
+
+	body, readErr := ioutil.ReadAll(res.Body)
+	if readErr != nil {
+		log.Fatal(readErr)
+	}
+
+	student1 := databasetypes.Student{}
+	jsonErr := json.Unmarshal(body, &student1)
+	if jsonErr != nil {
+		log.Fatal(jsonErr)
+	}
+	return student1.ID
 }
