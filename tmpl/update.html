@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>{{ .Title }}</title>
+			<link rel="stylesheet" type="text/css" href="/static/main.css">
+			</head>
+			<body>
+				<div class = "centered">
+		            <form action="/search/result/{{.Type}}" method="POST">
+					{{if .Student}}
+                    {{.Content}}
+					{{end}}
+					{{if .Teacher}}
+					you selected teacher.
+					Enter one or all search criteria or enter none to see all teachers
+					<div>TeacherName:  <textarea name="teacherName" rows="1" cols="15"></textarea></div>
+					<div>Classes Assigned:  <textarea name="classes_Assigned" rows="1" cols="15"></textarea></div>
+					<div>TeacherID:  <textarea name="teacherID" rows="1" cols="15"></textarea></div>
+					{{end}}
+
+					{{if .Class}}
+					you selected class.
+					Enter one or all search criteria or enter none to see all classes
+					<div>ClassName:  <textarea name="className" rows="1" cols="15"></textarea></div>
+					<div>ClassTeacher:  <textarea name="classTeacher" rows="1" cols="15"></textarea></div>
+					<div>ClassID:  <textarea name="classID" rows="1" cols="15"></textarea></div>
+					{{end}}
+					
+					<div><input type="submit" value="Save"></div>
+					</form>
+					
+					</div>
+				</body>
+			</html>

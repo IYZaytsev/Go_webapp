@@ -51,15 +51,14 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 
 	case "teacher":
 		teacherName := r.FormValue("teacherName")
-		teacherStruct := APICallTeacher(w, r, "/teachers/create", "POST", teacherName)
-
+		teacherStruct, _ := APICallTeacher(w, r, "/teachers/create", "POST", teacherName)
 		data := Page{Title: "View Page", Content: "Teacher: " + r.FormValue("teacherName"), ID: teacherStruct.ID}
 		TemplateInit(w, "view.html", data)
 
 	case "class":
 
 		className := r.FormValue("className")
-		classStruct := APICallClass(w, r, "/classes/create", "POST", className)
+		classStruct, _ := APICallClass(w, r, "/classes/create", "POST", className)
 		data := Page{Title: "View Page", Content: "className: " + r.FormValue("className"), ID: classStruct.ID}
 		TemplateInit(w, "view.html", data)
 
