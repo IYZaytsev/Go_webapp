@@ -1,6 +1,7 @@
 package handlefunc
 
 import (
+	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -59,14 +60,50 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	TemplateInit(w, "index.html", data)
 
 }
-func ApiCall(w http.ResponseWriter, r *http.Request, path string, method string) int {
-	url := "http://localhost:8080" + path
 
-	req, err := http.NewRequest(method, url, nil)
+//APICallStudent is a multi use api call that returns a student struct
+func APICallStudent(w http.ResponseWriter, r *http.Request, path string, method string, parameter string) (databasetypes.Student, databasetypes.Students) {
+	urlString := "http://localhost:8080" + path
+	studentStruct := databasetypes.Student{}
+	studentArray := databasetypes.Students{}
+	req, err := http.NewRequest(method, urlString, bytes.NewBufferString(parameter))
 	if err != nil {
 		log.Fatal(err)
 	}
-	req.Header.Set("User-Agent", "ApiCall")
+	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
+	res, getErr := myClient.Do(req)
+	if getErr != nil {
+		log.Fatal(getErr)
+	}
+
+	body, readErr := ioutil.ReadAll(res.Body)
+	if readErr != nil {
+		log.Fatal(readErr)
+	}
+	if method == "GET" {
+		jsonErr := json.Unmarshal(body, &studentArray)
+		if jsonErr != nil {
+			log.Fatal(jsonErr)
+		}
+	} else {
+		jsonErr := json.Unmarshal(body, &studentStruct)
+		if jsonErr != nil {
+			log.Fatal(jsonErr)
+		}
+	}
+
+	return studentStruct, studentArray
+}
+
+//APICallTeacher is a multi use api call that returns a teacher struct
+func APICallTeacher(w http.ResponseWriter, r *http.Request, path string, method string, parameter string) databasetypes.Teacher {
+	urlString := "http://localhost:8080" + path
+
+	req, err := http.NewRequest(method, urlString, bytes.NewBufferString(parameter))
+	if err != nil {
+		log.Fatal(err)
+	}
+	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
 	res, getErr := myClient.Do(req)
 	if getErr != nil {
 		log.Fatal(getErr)
@@ -77,10 +114,37 @@ func ApiCall(w http.ResponseWriter, r *http.Request, path string, method string)
 		log.Fatal(readErr)
 	}
 
-	student1 := databasetypes.Student{}
-	jsonErr := json.Unmarshal(body, &student1)
+	teacherStruct := databasetypes.Teacher{}
+	jsonErr := json.Unmarshal(body, &teacherStruct)
 	if jsonErr != nil {
 		log.Fatal(jsonErr)
 	}
-	return student1.ID
+	return teacherStruct
+}
+
+//APICallClass is a multi use api call that returns a teacher struct
+func APICallClass(w http.ResponseWriter, r *http.Request, path string, method string, parameter string) databasetypes.Class {
+	urlString := "http://localhost:8080" + path
+
+	req, err := http.NewRequest(method, urlString, bytes.NewBufferString(parameter))
+	if err != nil {
+		log.Fatal(err)
+	}
+	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
+	res, getErr := myClient.Do(req)
+	if getErr != nil {
+		log.Fatal(getErr)
+	}
+
+	body, readErr := ioutil.ReadAll(res.Body)
+	if readErr != nil {
+		log.Fatal(readErr)
+	}
+
+	classStruct := databasetypes.Class{}
+	jsonErr := json.Unmarshal(body, &classStruct)
+	if jsonErr != nil {
+		log.Fatal(jsonErr)
+	}
+	return classStruct
 }

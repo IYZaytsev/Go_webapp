@@ -3,8 +3,6 @@ package handlefunc
 import (
 	"net/http"
 	"strings"
-
-	"../databasetypes"
 )
 
 var globalID int
@@ -46,25 +44,23 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	switch typeOfObject {
 
 	case "student":
-
-		tempID := ApiCall(w, r, "/students/create", "POST")
-		data := Page{Title: "View Page", Content: "Student: " + r.FormValue("studentName"), ID: tempID}
+		studentName := r.FormValue("studentName")
+		studentStruct, _ := APICallStudent(w, r, "/students/create", "POST", studentName)
+		data := Page{Title: "View Page", Content: "Student: " + r.FormValue("studentName"), ID: studentStruct.ID}
 		TemplateInit(w, "view.html", data)
 
 	case "teacher":
+		teacherName := r.FormValue("teacherName")
+		teacherStruct := APICallTeacher(w, r, "/teachers/create", "POST", teacherName)
 
-		tempID := generateUniqueID()
-		var classSlice []databasetypes.Class
-		databasetypes.AddTeacher(tempID, classSlice, r.FormValue("teacherName"), &dataBaseTeacher)
-		data := Page{Title: "View Page", Content: "Teacher: " + r.FormValue("teacherName"), ID: tempID}
+		data := Page{Title: "View Page", Content: "Teacher: " + r.FormValue("teacherName"), ID: teacherStruct.ID}
 		TemplateInit(w, "view.html", data)
 
 	case "class":
 
-		tempID := generateUniqueID()
-		var studentSlice []databasetypes.Student
-		databasetypes.AddClass(tempID, r.FormValue("className"), studentSlice, -1, &dataBaseClass)
-		data := Page{Title: "View Page", Content: "className: " + r.FormValue("className"), ID: tempID}
+		className := r.FormValue("className")
+		classStruct := APICallClass(w, r, "/classes/create", "POST", className)
+		data := Page{Title: "View Page", Content: "className: " + r.FormValue("className"), ID: classStruct.ID}
 		TemplateInit(w, "view.html", data)
 
 	} //end of switch statement

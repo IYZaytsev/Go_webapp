@@ -22,5 +22,5 @@ func main() {
 	handlefunc.SetHandlers(&DataBaseStudent, &DataBaseTeacher, &DataBaseClass)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	log.Println("listening")
-	log.Fatalln(http.ListenAndServe(":9000", nil))
+	log.Fatalln(http.ListenAndServe(":9090", nil))
 }
