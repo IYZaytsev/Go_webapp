@@ -7,10 +7,11 @@
 			</head>
 			<body>
 				<div class = "centered">
-		            <form action="/search/result/{{.Type}}" method="POST">
+		            <form action="/commitchanges/{{.Type}}" method="POST">
 					{{if .Student}}
                     {{.Content}}
 					{{end}}
+
 					{{if .Teacher}}
 					you selected teacher.
 					Enter one or all search criteria or enter none to see all teachers

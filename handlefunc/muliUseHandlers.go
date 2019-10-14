@@ -94,6 +94,7 @@ func APICallStudent(w http.ResponseWriter, r *http.Request, path string, method 
 		if jsonErr != nil {
 			log.Fatal(jsonErr)
 		}
+
 	}
 
 	return studentStruct, studentSlice

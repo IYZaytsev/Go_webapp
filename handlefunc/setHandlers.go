@@ -20,4 +20,6 @@ func SetHandlers() {
 	http.HandleFunc("/view/", ViewHandler)
 	http.HandleFunc("/search/", SearchHandler)
 	http.HandleFunc("/update/", UpdateHandler)
+	http.HandleFunc("/commitchanges/", CommitHandler)
+
 }

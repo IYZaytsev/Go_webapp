@@ -36,12 +36,17 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 		_, studentSlice := APICallStudent(w, r, "/students/search", "GET", value)
 
-		searchResult += "<tr> <th> ID </th> <th> Name </th> <th> Update Entry</th> <th> Delete Entry </th> </tr>"
+		searchResult += "<tr> <th> ID </th> <th> Name </th> <th> ClassEnrolled </th> <th> Update Entry</th> <th> Delete Entry </th> </tr>"
 		for i := range studentSlice {
 
 			searchResult += "<tr>"
 			searchResult += "<td>" + strconv.Itoa(studentSlice[i].ID) + "</td>"
 			searchResult += "<td>" + studentSlice[i].Name + "</td>"
+			searchResult += "<td>"
+			for z := range studentSlice[i].ClassList {
+				searchResult += studentSlice[i].ClassList[z].Name
+			}
+			searchResult += "</td>"
 			searchResult += "<td>" + "<a href = /update/student/" + strconv.Itoa(studentSlice[i].ID) + ">" + "Update Entry" + "</a>" + "</td>"
 			searchResult += "<td>" + "<a href = /delete/student/" + strconv.Itoa(studentSlice[i].ID) + ">" + "Delete Entry" + "</a>" + "</td>"
 			searchResult += "</tr>"
