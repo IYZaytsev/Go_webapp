@@ -44,7 +44,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 			searchResult += "<td>" + studentSlice[i].Name + "</td>"
 			searchResult += "<td>"
 			for z := range studentSlice[i].ClassList {
-				searchResult += studentSlice[i].ClassList[z].Name
+				searchResult += studentSlice[i].ClassList[z].Name + ", "
 			}
 			searchResult += "</td>"
 			searchResult += "<td>" + "<a href = /update/student/" + strconv.Itoa(studentSlice[i].ID) + ">" + "Update Entry" + "</a>" + "</td>"
@@ -62,12 +62,17 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 		_, teacherSlice := APICallTeacher(w, r, "/teachers/search", "GET", value)
 
-		searchResult += "<tr> <th> ID </th> <th> Name </th> <th> Update Entry</th> <th> Delete Entry </th> </tr>"
+		searchResult += "<tr> <th> ID </th> <th> Name </th> <th> ClassList</th> <th> Update Entry</th> <th> Delete Entry </th> </tr>"
 		for i := range teacherSlice {
 
 			searchResult += "<tr>"
 			searchResult += "<td>" + strconv.Itoa(teacherSlice[i].ID) + "</td>"
 			searchResult += "<td>" + teacherSlice[i].Name + "</td>"
+			searchResult += "<td>"
+			for z := range teacherSlice[i].ClassList {
+				searchResult += teacherSlice[i].ClassList[z].Name + ", "
+			}
+			searchResult += "</td>"
 			searchResult += "<td>" + "<a href = /update/teacher/" + strconv.Itoa(teacherSlice[i].ID) + ">" + "Update Entry" + "</a>" + "</td>"
 			searchResult += "<td>" + "<a href = /delete/teacher/" + strconv.Itoa(teacherSlice[i].ID) + ">" + "Delete Entry" + "</a>" + "</td>"
 			searchResult += "</tr>"
@@ -83,13 +88,19 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 		_, classSlice := APICallClass(w, r, "/classes/search", "GET", value)
 
-		searchResult += "<tr> <th> ID </th> <th> Name </th> <th> TeacherName </th> <th> Update Entry</th> <th> Delete Entry </th></tr>"
+		searchResult += "<tr> <th> ID </th> <th> Name </th> <th> TeacherName </th> <th> Student List </th> <th> Update Entry</th> <th> Delete Entry </th></tr>"
 		for i := range classSlice {
 
 			searchResult += "<tr>"
 			searchResult += "<td>" + strconv.Itoa(classSlice[i].ID) + "</td>"
 			searchResult += "<td>" + classSlice[i].Name + "</td>"
 			searchResult += "<td>" + classSlice[i].AssignedTeacher.Name + "</td>"
+			searchResult += "<td>"
+			for z := range classSlice[i].StudentList {
+				searchResult += classSlice[i].StudentList[z].Name + ", "
+
+			}
+			searchResult += "</td>"
 			searchResult += "<td>" + "<a href = /update/class/" + strconv.Itoa(classSlice[i].ID) + ">" + "Update Entry" + "</a>" + "</td>"
 			searchResult += "<td>" + "<a href = /delete/class/" + strconv.Itoa(classSlice[i].ID) + ">" + "Delete Entry" + "</a>" + "</td>"
 			searchResult += "</tr>"

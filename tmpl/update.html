@@ -13,19 +13,11 @@
 					{{end}}
 
 					{{if .Teacher}}
-					you selected teacher.
-					Enter one or all search criteria or enter none to see all teachers
-					<div>TeacherName:  <textarea name="teacherName" rows="1" cols="15"></textarea></div>
-					<div>Classes Assigned:  <textarea name="classes_Assigned" rows="1" cols="15"></textarea></div>
-					<div>TeacherID:  <textarea name="teacherID" rows="1" cols="15"></textarea></div>
+					{{.Content}}
 					{{end}}
 
 					{{if .Class}}
-					you selected class.
-					Enter one or all search criteria or enter none to see all classes
-					<div>ClassName:  <textarea name="className" rows="1" cols="15"></textarea></div>
-					<div>ClassTeacher:  <textarea name="classTeacher" rows="1" cols="15"></textarea></div>
-					<div>ClassID:  <textarea name="classID" rows="1" cols="15"></textarea></div>
+					{{.Content}}
 					{{end}}
 					
 					<div><input type="submit" value="Save"></div>

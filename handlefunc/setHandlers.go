@@ -21,5 +21,6 @@ func SetHandlers() {
 	http.HandleFunc("/search/", SearchHandler)
 	http.HandleFunc("/update/", UpdateHandler)
 	http.HandleFunc("/commitchanges/", CommitHandler)
+	http.HandleFunc("/delete/", DeleteHandler)
 
 }
