@@ -8,7 +8,7 @@
 			<body>
 				<div class = "centered">
 					<h1>{{ .Header }}</h1>
-					<form action="/view/{{.Type}}" method="POST">
+					<form action="/view/{{.Type}}" method="POST" id ="form1">
 					{{if .Student}}
 					you selected student.
 					<div>StudentName: <textarea name="studentName" rows="1" cols="15"></textarea></div>
@@ -23,7 +23,7 @@
 					<div>ClassName:  <textarea name="className" rows="1" cols="15"></textarea></div>
 					{{end}}
 					
-					<div><input type="submit" value="Save"></div>
+					<button type = "submit" value="submit" form = "form1" id = "Next" >Next</button>
 					</form>
 					
 					</div>

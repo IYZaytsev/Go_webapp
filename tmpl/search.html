@@ -8,7 +8,7 @@
 			<body>
 				<div class = "centered">
 					<h1>{{ .Content }}</h1>
-		            <form action="/search/result/{{.Type}}" method="POST">
+		            <form action="/search/result/{{.Type}}" method="POST" id="form1">
 					{{if .Student}}
 					you selected student.
 					Enter one or all search criteria or enter none to see all students
@@ -31,10 +31,10 @@
 					<div>ClassTeacher:  <textarea name="classTeacher" rows="1" cols="15"></textarea></div>
 					<div>ClassID:  <textarea name="classID" rows="1" cols="15"></textarea></div>
 					{{end}}
-					
-					<div><input type="submit" value="Save"></div>
 					</form>
-					
+					<button type = "submit" value="submit" form = "form1" id = "Create" >Search</button>
+					<button onclick="window.location.href = '/';">Go Home </button>
 					</div>
+					
 				</body>
 			</html>
