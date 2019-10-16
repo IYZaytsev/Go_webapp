@@ -1,5 +1,5 @@
 ## Golang WebApp 
->Requires https://github.com/IYZaytsev/goSchoolDatabaseREST to work.
+>Requires [this project](https://github.com/IYZaytsev/goSchoolDatabaseREST) to work.
 
 >runs on port 9090 by default
 
