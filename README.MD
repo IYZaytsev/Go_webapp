@@ -12,6 +12,8 @@ so that I could apply them to a more complicated project in the future.
 ## Installation 
 `git clone https://github.com/IYZaytsev/Go_webapp`
 
+`cd Go_webapp`
+
 `go build`
 
 `./Go_webapp`
