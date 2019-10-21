@@ -10,17 +10,22 @@ body{
 }
 
 .centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  min-height: 100vh;
 }
+
+
+
 .displayResult table, th, td {
   border: 2px solid  #091f36;
+  
 }
 button{
-  width: 60%;
+  width: 40%;
   padding: 10px;
   margin: 10px;
   color:#091f36;
@@ -42,4 +47,9 @@ button:hover{
   height: 100px;
 }
 
+label {
+  width: 200px;
+  display: inline-block;
+  text-align: right;
+}
 

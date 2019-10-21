@@ -17,7 +17,7 @@ func generateUniqueID() int {
 func CreateHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm() // Required if you don't call r.FormValue()
 	value := strings.Join(r.Form["selected_value"], " ")
-	data := Page{Title: "School Database", Header: "Editing " + value, Type: value}
+	data := Page{Title: "School Database", Header: "Creating " + value, Type: value}
 
 	switch value {
 	case "student":

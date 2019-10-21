@@ -10,26 +10,32 @@
 					<h1>{{ .Content }}</h1>
 		            <form action="/search/result/{{.Type}}" method="POST" id="form1">
 					{{if .Student}}
-					you selected student.
-					Enter one or all search criteria or enter none to see all students
-					<div>StudentName: <textarea name="studentName" rows="1" cols="15"></textarea></div>
-					<div>EnrolledClasses: <textarea name="enrolledClasses" rows="1" cols="15"></textarea></div>
-					<div>StudentID: <textarea name="studentID" rows="1" cols="15"></textarea></div>
+					<h3>You selected student. Enter any search criteria or enter none to see all students</h3><br />
+					<label> StudentName </label>
+					<input type = "text" name="studentName"><br />
+					<label> EnrolledClasses </label>
+					<input type = "text" name="enrolledClasses"><br />
+					<label> StudentID </label>
+					<input type = "text" name="studentID"><br />
 					{{end}}
 					{{if .Teacher}}
-					you selected teacher.
-					Enter one or all search criteria or enter none to see all teachers
-					<div>TeacherName:  <textarea name="teacherName" rows="1" cols="15"></textarea></div>
-					<div>Classes Assigned:  <textarea name="classes_Assigned" rows="1" cols="15"></textarea></div>
-					<div>TeacherID:  <textarea name="teacherID" rows="1" cols="15"></textarea></div>
+					<h3>You selected teacher. Enter any search criteria or enter none to see all teachers</h3><br />
+					<label> TeacherName </label>
+					<input type = "text" name="teacherName"><br />
+					<label> Classes Assigned </label>
+					<input type = "text" name="classes_Assigned"><br />
+					<label> TeacherID </label>
+					<input type = "text" name="teacherID"><br />
 					{{end}}
 
 					{{if .Class}}
-					you selected class.
-					Enter one or all search criteria or enter none to see all classes
-					<div>ClassName:  <textarea name="className" rows="1" cols="15"></textarea></div>
-					<div>ClassTeacher:  <textarea name="classTeacher" rows="1" cols="15"></textarea></div>
-					<div>ClassID:  <textarea name="classID" rows="1" cols="15"></textarea></div>
+					<h3>You selected class. Enter any search criteria or enter none to see all classes</h3><br />
+					<label> ClassName </label>
+					<input type = "text" name="className"><br />
+					<label> ClassTeacher </label>
+					<input type = "text" name="classTeacher"><br />
+					<label> ClassID </label>
+					<input type = "text" name="classID"><br />
 					{{end}}
 					</form>
 					<button type = "submit" value="submit" form = "form1" id = "Create" >Search</button>

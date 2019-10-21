@@ -22,7 +22,7 @@ func UpdateHandler(w http.ResponseWriter, r *http.Request) {
 		selectString := "<h1> Editing " + studentList[0].Name + "</h1> Enroll In Class<select name = 'class_list'>"
 		selectString += "<option value = none>none</option>"
 		for i := range classList {
-			selectString += "<option value=" + classList[i].Name + ">" + classList[i].Name + "</option>"
+			selectString += "<option value=\"" + classList[i].Name + "\">" + classList[i].Name + "</option>"
 		}
 		selectString += "</select> <div>StudentName: <textarea name='studentName' rows='1' cols='15'>" + studentList[0].Name + "</textarea></div>"
 		selectString += "<input type='hidden' id='ID' name='ID' value=" + strconv.Itoa(studentList[0].ID) + ">"
@@ -36,7 +36,7 @@ func UpdateHandler(w http.ResponseWriter, r *http.Request) {
 		selectString := "<h1> Editing " + teacherList[0].Name + "</h1> Assign Class<select name = 'class_list'>"
 		selectString += "<option value = none>none</option>"
 		for i := range classList {
-			selectString += "<option value=" + classList[i].Name + ">" + classList[i].Name + "</option>"
+			selectString += "<option value=\"" + classList[i].Name + "\">" + classList[i].Name + "</option>"
 		}
 		selectString += "</select> <div>Teacher: <textarea name='teacherName' rows='1' cols='15'>" + teacherList[0].Name + "</textarea></div>"
 		selectString += "<input type='hidden' id='ID' name='ID' value=" + strconv.Itoa(teacherList[0].ID) + ">"
