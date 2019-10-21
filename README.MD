@@ -1,7 +1,7 @@
 ## Golang WebApp 
 >Requires [this project](https://github.com/IYZaytsev/goSchoolDatabaseREST) to work.
 
->runs on port 9090 by default
+>runs on port 9080 by default
 
 ## Purpose of this project
 A web app in Golang utilizing REST and microservice architectural styles.
